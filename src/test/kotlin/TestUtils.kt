@@ -7,11 +7,11 @@ object TestUtils {
         Assertions.assertEquals(expected.toList(), actual.toList())
     }
 
-    fun randomArray(size: Int) =  List(size) { Random.nextInt(100) }.toTypedArray()
-    fun sortedArray(size: Int) = List(size) { it }.toTypedArray()
+    fun randomArray(size: Int) =  mutableRandomList(size).toTypedArray()
+    fun sortedArray(size: Int) = mutableSortedList(size).toTypedArray()
 
-    fun mutableRandomList(size: Int) = List(size) { Random.nextInt(100) }.toMutableList()
+    fun mutableRandomList(size: Int) = MutableList(size) { Random.nextInt(100) }
+    fun mutableSortedList(size: Int) = MutableList(size) { it }
     fun list(size: Int) = List(size) { it }
-
-
+    fun array(size: Int) = Array(size) { it }
 }
