@@ -1,7 +1,7 @@
 package other
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 internal class BinaryDigitsCounterTest {
 
@@ -41,5 +41,4 @@ internal class BinaryDigitsCounterTest {
 
         Assertions.assertEquals(BinaryDigitsCounter.Result(0, 10), result)
     }
-
 }

@@ -1,11 +1,10 @@
 package design_patterns
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 internal class BuilderTest {
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_first_variant() {
 
         val name = "Twillight Sparkle"
@@ -22,7 +21,7 @@ internal class BuilderTest {
         assertEquals("$name, $family, $cutieMark, $city", pony.toString())
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_the_second_variant() {
 
         val name = "Twillight Sparkle"
@@ -39,7 +38,7 @@ internal class BuilderTest {
         assertEquals("$name, $family, $cutieMark, $city", pony.toString())
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_third_variant() {
 
         val name = "Twillight Sparkle"

@@ -1,7 +1,8 @@
 package sorting
 
-import org.junit.Test
+import TestUtils
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 internal class BubbleSortTest {
 
@@ -58,6 +59,4 @@ internal class BubbleSortTest {
 
         Assertions.assertEquals(expected, actual)
     }
-
-
 }

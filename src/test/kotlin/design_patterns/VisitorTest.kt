@@ -1,6 +1,5 @@
 package design_patterns
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 internal class VisitorTest {
@@ -43,7 +42,7 @@ internal class VisitorTest {
         </ponies>
     """.trimIndent()
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_json_visitor() {
         val jsonVisitor = JsonVisitor()
         val twilightSparkle = Unicorn("Twilight Sparkle", "star")
@@ -53,7 +52,7 @@ internal class VisitorTest {
         assertEquals(expectedJson, actual)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_xml_visitor() {
         val xmlVisitor = XmlVisitor()
         val twilightSparkle = Unicorn("Twilight Sparkle", "star")

@@ -1,7 +1,7 @@
 package search
 
-import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 internal class BinarySearchTest {
 
@@ -46,5 +46,4 @@ internal class BinarySearchTest {
         assertEquals(1, searchAlgo.rightBound(array, 15))
         assertEquals(2, searchAlgo.rightBound(array, 21))
     }
-
 }

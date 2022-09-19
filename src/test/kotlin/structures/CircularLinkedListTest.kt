@@ -1,7 +1,7 @@
 package structures
 
-import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 internal class CircularLinkedListTest {
 
@@ -87,5 +87,4 @@ internal class CircularLinkedListTest {
         list.remove(10)
         assertEquals(false, list.contains(10))
     }
-
 }

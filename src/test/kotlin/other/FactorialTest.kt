@@ -1,13 +1,12 @@
 package other
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 internal class FactorialTest {
 
     private val factorial = Factorial()
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_iterative() {
         assertEquals(1, factorial.compute(0))
         assertEquals(1, factorial.compute(1))
@@ -16,7 +15,7 @@ internal class FactorialTest {
         assertEquals(720, factorial.compute(6))
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_recursive() {
         assertEquals(1, factorial.computeRecursive(0))
         assertEquals(1, factorial.computeRecursive(1))
@@ -25,7 +24,7 @@ internal class FactorialTest {
         assertEquals(720, factorial.computeRecursive(6))
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_recursive_with_kotlin_optimization() {
         assertEquals(1, factorial.computeRecursiveWithKotlinOptimization(0))
         assertEquals(1, factorial.computeRecursiveWithKotlinOptimization(1))

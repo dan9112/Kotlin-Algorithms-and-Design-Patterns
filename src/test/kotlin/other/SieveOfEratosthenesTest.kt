@@ -1,11 +1,10 @@
 package other
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions
 
 internal class SieveOfEratosthenesTest {
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_success() {
         val eratosthenes = SieveOfEratosthenes()
         val actual = eratosthenes.compute(10)
@@ -13,7 +12,7 @@ internal class SieveOfEratosthenesTest {
         Assertions.assertEquals(expected, actual)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_fail() {
         val eratosthenes = SieveOfEratosthenes()
         val actual = eratosthenes.compute(5)

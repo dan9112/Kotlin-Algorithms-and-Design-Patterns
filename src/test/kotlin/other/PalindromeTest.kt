@@ -1,24 +1,22 @@
 package other
 
-import org.junit.Test
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.*
 
 internal class PalindromeTest {
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_empty_string() {
         val text1 = ""
         assertEquals(Palindrome(text1).isYes(), true)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_one_length() {
         val text1 = "a"
         assertEquals(Palindrome(text1).isYes(), true)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_is_palindrome() {
         val text1 = "tenet"
         assertEquals(Palindrome(text1).isYes(), true)
@@ -27,7 +25,7 @@ internal class PalindromeTest {
         assertEquals(Palindrome(text2).isYes(), false)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_is_not_palindrome() {
         val text1 = "white"
         assertEquals(Palindrome(text1).isNot(), true)

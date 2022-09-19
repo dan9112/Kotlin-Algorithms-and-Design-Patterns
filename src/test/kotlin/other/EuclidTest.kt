@@ -1,13 +1,12 @@
 package other
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 internal class EuclidTest {
 
     private val euclid = Euclid()
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_one() {
         assertEquals(5, euclid.compute(10, 5))
         assertEquals(10, euclid.compute(10, 100))
@@ -15,7 +14,7 @@ internal class EuclidTest {
         assertEquals(13, euclid.compute(26, 39))
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_two() {
         assertEquals(1, euclid.compute(135, 13))
         assertEquals(1, euclid.compute(27, 19))

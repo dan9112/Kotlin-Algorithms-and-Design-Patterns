@@ -1,7 +1,7 @@
 package structures
 
-import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 internal class GraphTest {
 
@@ -72,5 +72,4 @@ internal class GraphTest {
 
         assertEquals(listOf(Vertex(10), Vertex(20), Vertex(30), Vertex(40)), graph.breadthFirstTraversal())
     }
-
 }

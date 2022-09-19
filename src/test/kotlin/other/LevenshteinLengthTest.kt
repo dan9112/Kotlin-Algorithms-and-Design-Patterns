@@ -1,7 +1,7 @@
 package other
 
-import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 internal class LevenshteinLengthTest {
 
@@ -23,5 +23,4 @@ internal class LevenshteinLengthTest {
         val str1 = "hello"
         assertEquals(0, levenshteinLength.compute(str1, str1))
     }
-
 }

@@ -1,13 +1,12 @@
 package other
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 internal class SwapTest {
 
     private val swap = Swap()
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_list() {
         val list = mutableListOf(1, 2)
         val expected1 = listOf(1, 2)
@@ -17,7 +16,7 @@ internal class SwapTest {
         assertEquals(expected2, list)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_array() {
         val array = arrayOf(1, 2)
         val expected1 = listOf(1, 2)
@@ -27,7 +26,7 @@ internal class SwapTest {
         assertEquals(expected2, array.toList())
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_list_kotlin() {
         val list = mutableListOf(1, 2)
         val expected1 = listOf(1, 2)
@@ -37,7 +36,7 @@ internal class SwapTest {
         assertEquals(expected2, list)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_array_kotlin() {
         val array = arrayOf(1, 2)
         val expected1 = listOf(1, 2)

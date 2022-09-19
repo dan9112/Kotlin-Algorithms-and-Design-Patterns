@@ -1,8 +1,8 @@
 package sorting
 
-import org.junit.Test
+import TestUtils
 import org.junit.jupiter.api.Assertions
-import kotlin.random.Random
+import org.junit.jupiter.api.Test
 
 class BubbleSortImprovedTest {
 
@@ -59,5 +59,4 @@ class BubbleSortImprovedTest {
 
         Assertions.assertEquals(expected, actual)
     }
-
 }

@@ -1,7 +1,8 @@
 package sorting
 
-import org.junit.Test
+import TestUtils
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class TimSortTest {
 
@@ -47,5 +48,4 @@ class TimSortTest {
 
         Assertions.assertEquals(expected, actual.toList())
     }
-
 }

@@ -1,23 +1,22 @@
 package other
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 class PalindromeAdvancedTest {
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_empty_string() {
         val text1 = ""
         assertEquals(PalindromeAdvanced(text1).isYes(), true)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_one_length() {
         val text1 = "a"
         assertEquals(PalindromeAdvanced(text1).isYes(), true)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_is_palindrome() {
         val text1 = "tenet"
         assertEquals(PalindromeAdvanced(text1).isYes(), true)
@@ -26,7 +25,7 @@ class PalindromeAdvancedTest {
         assertEquals(PalindromeAdvanced(text2).isYes(), false)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_is_not_palindrome() {
         val text1 = "white"
         assertEquals(PalindromeAdvanced(text1).isNot(), true)

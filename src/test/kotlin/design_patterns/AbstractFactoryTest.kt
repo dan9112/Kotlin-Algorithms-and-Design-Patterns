@@ -2,11 +2,10 @@ package design_patterns
 
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsInstanceOf.instanceOf
-import org.junit.Test
 
 internal class AbstractFactoryTest {
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test() {
         val iosFactory = IOSButtonFactory()
 

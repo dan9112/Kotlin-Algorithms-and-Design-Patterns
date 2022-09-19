@@ -1,11 +1,10 @@
 package other
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 internal class KnuthMorrisPrattTest {
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test() {
         val knuthMorrisPratt = KnuthMorrisPratt()
 

@@ -1,8 +1,8 @@
 package sorting
 
-import org.junit.Test
+import TestUtils
 import org.junit.jupiter.api.Assertions
-import kotlin.random.Random
+import org.junit.jupiter.api.Test
 
 internal class InsertionSortTest {
 
@@ -59,5 +59,4 @@ internal class InsertionSortTest {
 
         Assertions.assertEquals(expected, actual)
     }
-
 }

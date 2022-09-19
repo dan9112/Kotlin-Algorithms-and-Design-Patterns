@@ -1,18 +1,16 @@
 package structures
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
-import java.lang.IllegalStateException
 
 internal class ArrayListQueueTest {
 
-    private val queue : Queue<Int> = Queue.ArrayListQueue()
+    private val queue: Queue<Int> = Queue.ArrayListQueue()
 
     @BeforeEach
     fun clear() = queue.clear()
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_is_empty() {
         Assertions.assertEquals(true, queue.isEmpty())
 
@@ -23,14 +21,14 @@ internal class ArrayListQueueTest {
 
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_poll() {
         queue.offer(1)
         Assertions.assertEquals(1, queue.poll())
         Assertions.assertEquals(null, queue.poll())
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_peek() {
         queue.offer(5)
         Assertions.assertEquals(5, queue.peek())
@@ -38,7 +36,7 @@ internal class ArrayListQueueTest {
         Assertions.assertEquals(null, queue.peek())
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_remove() {
         queue.offer(100)
         Assertions.assertEquals(100, queue.remove())
@@ -49,7 +47,7 @@ internal class ArrayListQueueTest {
         Assertions.assertEquals("queue is empty!", exception.message)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_element() {
         queue.offer(100)
         Assertions.assertEquals(100, queue.element())
@@ -62,7 +60,7 @@ internal class ArrayListQueueTest {
         Assertions.assertEquals("queue is empty!", exception.message)
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_remove_object() {
         queue.offer(10)
         queue.offer(20)
@@ -71,5 +69,4 @@ internal class ArrayListQueueTest {
         Assertions.assertEquals(true, queue.remove(20))
         Assertions.assertEquals(false, queue.remove(34))
     }
-
 }

@@ -1,14 +1,16 @@
 package structures
 
-import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 internal class MyArrayListTest {
 
     @Test
     fun test_add() {
         val array = MyArrayList().apply {
-            for (i in 0 until 10) { add(i) }
+            for (i in 0 until 10) {
+                add(i)
+            }
         }
         assertEquals(5, array.get(5))
     }
@@ -55,7 +57,9 @@ internal class MyArrayListTest {
     @Test
     fun test_increasing() {
         val array = MyArrayList().apply {
-            for (i in 0 until 10) { add(i) }
+            for (i in 0 until 10) {
+                add(i)
+            }
         }
         assertEquals(false, array.contains(10))
         assertEquals(20, array.capacity())
@@ -63,5 +67,4 @@ internal class MyArrayListTest {
         assertEquals(true, array.contains(10))
         assertEquals(20, array.capacity())
     }
-
 }

@@ -1,11 +1,10 @@
 package design_patterns
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 internal class FluentInterfaceTest {
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test() {
 
         val view = View().bg(0xffffff).focusable().clickable()

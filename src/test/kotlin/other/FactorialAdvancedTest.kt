@@ -1,25 +1,24 @@
 package other
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions
 
 internal class FactorialAdvancedTest {
 
     private val factorial = FactorialAdvanced()
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_factorial_30() {
         val actual = factorial.compute(30)
         Assertions.assertEquals("265252859812191058636308480000000", actual.toString())
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_factorial_60() {
         val actual = factorial.compute(60)
         Assertions.assertEquals("8320987112741390144276341183223364380754172606361245952449277696409600000000000000", actual.toString())
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_factorial_90() {
         val expected = "93326215443944152681699238856266700490715968264381621468592963" +
                 "895217599993229915608941463976156518286253697920827223758251185210916" +
@@ -29,7 +28,7 @@ internal class FactorialAdvancedTest {
         Assertions.assertEquals(expected, actual.toString())
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_factorial_200() {
         val expected = "788657867364790503552363213932185062295135977687173263294742533244359449963403342920304" +
                 "2840119846239041772121389196388302576427902426371050619266249528299311134628572707633172373969" +
@@ -40,7 +39,7 @@ internal class FactorialAdvancedTest {
         Assertions.assertEquals(expected, actual.toString())
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     fun test_factorial_1000() {
         val expected = "40238726007709377354370243392300398571937486421071463254379991042993851" +
                 "2398629020592044208486969404800479988610197196058631666872994808558901323829669" +

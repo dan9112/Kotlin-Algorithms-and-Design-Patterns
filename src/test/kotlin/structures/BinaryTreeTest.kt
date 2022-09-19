@@ -1,7 +1,7 @@
 package structures
 
-import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 internal class BinaryTreeTest {
 
@@ -116,5 +116,4 @@ internal class BinaryTreeTest {
 
         assertEquals(listOf(5, 3, 8, 2, 9), tree.traverseLevelOrder())
     }
-
 }

@@ -1,7 +1,7 @@
 package other
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 internal class ParenthesisCheckTest {
 
@@ -39,6 +39,4 @@ internal class ParenthesisCheckTest {
         val statement = "(([[()]])){}{}([)".trimIndent()
         Assertions.assertEquals(false, parenthesisCheck.check(statement))
     }
-
-
 }

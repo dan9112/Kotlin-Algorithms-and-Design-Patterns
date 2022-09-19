@@ -1,7 +1,7 @@
 package design_patterns
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 internal class CommandTest {
 
@@ -72,5 +72,4 @@ internal class CommandTest {
 
         Assertions.assertEquals(180, actual)
     }
-
 }

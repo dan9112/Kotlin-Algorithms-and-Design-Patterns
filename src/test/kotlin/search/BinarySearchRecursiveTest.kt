@@ -1,7 +1,7 @@
 package search
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 internal class BinarySearchRecursiveTest {
 
@@ -30,5 +30,4 @@ internal class BinarySearchRecursiveTest {
         val array = arrayOf(0, 5, 10, 15, 20, 25)
         Assertions.assertEquals(false, searchAlgo.exists(array, 100))
     }
-
 }

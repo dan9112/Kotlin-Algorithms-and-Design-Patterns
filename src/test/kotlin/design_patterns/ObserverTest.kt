@@ -1,10 +1,9 @@
 package design_patterns
 
-import org.junit.Test
 import org.junit.jupiter.api.Assertions.*
 
 internal class ObserverTest {
-    @Test
+    @org.junit.jupiter.api.Test
     fun test() {
         val ponyList = PonyList()
         ponyList.observe { items ->
