@@ -1,10 +1,10 @@
-package structures
+package structures.queue
 
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.assertEquals
+import com.google.common.truth.Truth.assertThat
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import structures.queue.Queue
+import structures.queue.Queue.Companion.emptyQueueMessage
 import structures.queue.implementations.LinkedListQueue
 
 class LinkedListQueueTest {
@@ -14,62 +14,61 @@ class LinkedListQueueTest {
     fun clear() = queue.clear()
 
     @Test
-    fun test_is_empty() {
-        assertEquals(true, queue.isEmpty())
+    fun test_is_empty() = with(receiver = queue) {
+        assertThat(isEmpty()).isTrue()
 
-        queue.offer(1)
-        queue.offer(2)
+        offer(1)
+        offer(2)
 
-        assertEquals(false, queue.isEmpty())
-
+        assertThat(isEmpty()).isFalse()
     }
 
     @Test
-    fun test_poll() {
-        queue.offer(1)
-        assertEquals(1, queue.poll())
-        assertEquals(null, queue.poll())
+    fun test_poll() = with(receiver = queue) {
+        offer(1)
+        assertThat(poll()).isEqualTo(1)
+        assertThat(poll()).isNull()
     }
 
     @Test
-    fun test_peek() {
-        queue.offer(5)
-        assertEquals(5, queue.peek())
-        queue.clear()
-        assertEquals(null, queue.peek())
+    fun test_peek() = with(receiver = queue) {
+        offer(5)
+        assertThat(peek()).isEqualTo(5)
+        clear()
+        assertThat(peek()).isNull()
     }
 
     @Test
-    fun test_remove() {
-        queue.offer(100)
-        assertEquals(100, queue.remove())
+    fun test_remove() = with(receiver = queue) {
+        offer(100)
+        assertThat(remove()).isEqualTo(100)
 
-        val exception = Assertions.assertThrows(IllegalStateException::class.java) {
-            queue.remove()
+        val exception = assertThrows(IllegalStateException::class.java) {
+            remove()
         }
-        assertEquals("queue is empty!", exception.message)
+        assertThat(exception.message).isEqualTo(emptyQueueMessage)
     }
 
     @Test
-    fun test_element() {
-        queue.offer(100)
-        assertEquals(100, queue.element())
+    fun test_element() = with(receiver = queue) {
+        offer(100)
+        assertThat(element()).isEqualTo(100)
 
-        queue.clear()
+        clear()
 
-        val exception = Assertions.assertThrows(IllegalStateException::class.java) {
+        val exception = assertThrows(IllegalStateException::class.java) {
             queue.element()
         }
-        assertEquals("queue is empty!", exception.message)
+        assertThat(exception.message).isEqualTo(emptyQueueMessage)
     }
 
     @Test
-    fun test_remove_object() {
-        queue.offer(10)
-        queue.offer(20)
-        queue.offer(1000)
+    fun test_remove_object() = with(receiver = queue) {
+        offer(10)
+        offer(20)
+        offer(1000)
 
-        assertEquals(true, queue.remove(20))
-        assertEquals(false, queue.remove(34))
+        assertThat(queue.remove(20)).isTrue()
+        assertThat(queue.remove(34)).isFalse()
     }
 }
