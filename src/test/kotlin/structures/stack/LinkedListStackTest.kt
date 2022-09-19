@@ -2,7 +2,7 @@ package structures.stack
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.Test
-import structures.Stack.LinkedListStack
+import structures.stack.implementations.LinkedListStack
 
 class LinkedListStackTest {
     private val arrayListStack = LinkedListStack<Int>()
