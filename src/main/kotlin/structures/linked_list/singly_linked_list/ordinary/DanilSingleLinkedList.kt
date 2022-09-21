@@ -1,15 +1,15 @@
 package structures.linked_list.singly_linked_list.ordinary
 
 open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
-    private var data: Node<T>? = null
-    private var _size = 0
+    protected var data: Node<T>? = null
+    protected var mutableSize = 0
 
     override fun add(item: T, index: Int) {
         if (index > size) {
             throw IndexOutOfBoundsException()
         } else {
-            if (size == 0) {
-                data = Node(item)
+            if (isEmpty() || index == 0) {
+                data = Node(item, data)
             } else {
                 var current = data
                 var i = 0
@@ -19,12 +19,12 @@ open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
                 }
                 current!!.next = Node(item)
             }
-            _size++
+            mutableSize++
         }
     }
 
     override fun add(item: T) {
-        if (size == 0) {
+        if (isEmpty()) {
             data = Node(item)
         } else {
             var current = data
@@ -35,12 +35,12 @@ open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
             }
             current!!.next = Node(item)
         }
-        _size++
+        mutableSize++
     }
 
     override fun clear() {
         data = null
-        _size = 0
+        mutableSize = 0
     }
 
     override val first
@@ -51,14 +51,14 @@ open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
     override fun isEmpty() = data == null
 
     override val size
-        get() = _size
+        get() = mutableSize
 
     override fun removeFirst() = if (isEmpty()) {
         false
     } else {
         data = if (size == 1) null
         else data!!.next
-        _size--
+        mutableSize--
         true
     }
 
@@ -74,7 +74,7 @@ open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
             }
             current.next = null
         }
-        _size--
+        mutableSize--
         true
     }
 
@@ -90,18 +90,22 @@ open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
         current!!.value
     }
 
-    override fun remove(index: Int) {
+    override fun removeAt(index: Int) {
         if (index >= size) {
             throw IndexOutOfBoundsException()
         } else {
-            var current = data
-            var i = 1
-            while (i < index) {
-                i++
-                current = current!!.next
+            if (index == 0) {
+                data = data!!.next
+            } else {
+                var current = data
+                var i = 1
+                while (i < index) {
+                    i++
+                    current = current!!.next
+                }
+                current!!.next = current.next!!.next
             }
-            current!!.next = current.next!!.next
-            _size--
+            mutableSize--
         }
     }
 
@@ -112,7 +116,7 @@ open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
 
         data!!.value == item -> {
             data = data!!.next
-            _size--
+            mutableSize--
             true
         }
 
@@ -124,7 +128,7 @@ open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
             if (current.next == null) false
             else {
                 current.next = current.next!!.next
-                _size--
+                mutableSize--
                 true
             }
         }
@@ -155,15 +159,15 @@ open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
             }
             current.next = Node(item)
         }
-        _size++
+        mutableSize++
     }
 
     override fun addFirst(item: T) {
         data = Node(item, data)
-        _size++
+        mutableSize++
     }
 
-    private fun iterate(action: (item: Node<T>) -> Unit) {
+    protected fun iterate(action: (item: Node<T>) -> Unit) {
         var current = data
         while (current != null) {
             action(current)
@@ -171,7 +175,7 @@ open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
         }
     }
 
-    private fun iterate(action: (index: Int, item: Node<T>) -> Unit) {
+    protected fun iterate(action: (index: Int, item: Node<T>) -> Unit) {
         var current = data
         var index = 0
         while (current != null) {

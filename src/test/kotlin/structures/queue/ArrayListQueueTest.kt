@@ -16,7 +16,7 @@ internal class ArrayListQueueTest {
     fun clear() = queue.clear()
 
     @Test
-    fun test_is_empty() = with(receiver = queue) {
+    fun test_is_empty() = with(queue) {
         assertThat(queue.isEmpty()).isTrue()
 
         offer(1)
@@ -26,14 +26,14 @@ internal class ArrayListQueueTest {
     }
 
     @Test
-    fun test_poll() = with(receiver = queue) {
+    fun test_poll() = with(queue) {
         offer(1)
         assertThat(poll()).isEqualTo(1)
         assertThat(poll()).isNull()
     }
 
     @Test
-    fun test_peek() = with(receiver = queue) {
+    fun test_peek() = with(queue) {
         offer(5)
         assertThat(peek()).isEqualTo(5)
         clear()
@@ -41,11 +41,11 @@ internal class ArrayListQueueTest {
     }
 
     @Test
-    fun test_remove() = with(receiver = queue) {
+    fun test_remove() = with(queue) {
         offer(100)
         assertThat(remove()).isEqualTo(100)
 
-        with(receiver = assertThrows(IllegalStateException::class.java) {
+        with(assertThrows(IllegalStateException::class.java) {
             remove()
         }) {
             assertThat(message).isEqualTo(emptyQueueMessage)
@@ -53,13 +53,13 @@ internal class ArrayListQueueTest {
     }
 
     @Test
-    fun test_element() = with(receiver = queue) {
+    fun test_element() = with(queue) {
         offer(100)
         Assertions.assertEquals(100, element())
 
         clear()
 
-        with(receiver = assertThrows(IllegalStateException::class.java) {
+        with(assertThrows(IllegalStateException::class.java) {
             element()
         }) {
             assertThat(message).isEqualTo(emptyQueueMessage)
@@ -67,7 +67,7 @@ internal class ArrayListQueueTest {
     }
 
     @Test
-    fun test_remove_object() = with(receiver = queue) {
+    fun test_remove_object() = with(queue) {
         offer(10)
         offer(20)
         offer(1000)

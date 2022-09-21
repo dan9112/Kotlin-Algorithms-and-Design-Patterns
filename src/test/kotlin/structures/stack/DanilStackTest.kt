@@ -46,7 +46,7 @@ class DanilStackTest {
 
     @Test
     fun test_max_size() {
-        val arrayListStack = DanilStack<Int>(maxSize = 24u)
+        val arrayListStack = DanilStack<Int>(24u)
 
         assertThat(arrayListStack.maxSize).isEqualTo(24u)
     }

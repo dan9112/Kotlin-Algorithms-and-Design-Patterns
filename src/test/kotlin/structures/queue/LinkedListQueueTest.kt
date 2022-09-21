@@ -14,7 +14,7 @@ class LinkedListQueueTest {
     fun clear() = queue.clear()
 
     @Test
-    fun test_is_empty() = with(receiver = queue) {
+    fun test_is_empty() = with(queue) {
         assertThat(isEmpty()).isTrue()
 
         offer(1)
@@ -24,14 +24,14 @@ class LinkedListQueueTest {
     }
 
     @Test
-    fun test_poll() = with(receiver = queue) {
+    fun test_poll() = with(queue) {
         offer(1)
         assertThat(poll()).isEqualTo(1)
         assertThat(poll()).isNull()
     }
 
     @Test
-    fun test_peek() = with(receiver = queue) {
+    fun test_peek() = with(queue) {
         offer(5)
         assertThat(peek()).isEqualTo(5)
         clear()
@@ -39,7 +39,7 @@ class LinkedListQueueTest {
     }
 
     @Test
-    fun test_remove() = with(receiver = queue) {
+    fun test_remove() = with(queue) {
         offer(100)
         assertThat(remove()).isEqualTo(100)
 
@@ -50,7 +50,7 @@ class LinkedListQueueTest {
     }
 
     @Test
-    fun test_element() = with(receiver = queue) {
+    fun test_element() = with(queue) {
         offer(100)
         assertThat(element()).isEqualTo(100)
 
@@ -63,7 +63,7 @@ class LinkedListQueueTest {
     }
 
     @Test
-    fun test_remove_object() = with(receiver = queue) {
+    fun test_remove_object() = with(queue) {
         offer(10)
         offer(20)
         offer(1000)

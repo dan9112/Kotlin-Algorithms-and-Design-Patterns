@@ -7,13 +7,13 @@ open class DanilCircularSingleLinkedList<T> : CircularSingleLinkedList<T> {
         get() = mutableSize
 
     override fun addNext(item: T, index: Int) {
-        if (size == 0) {
+        if (isEmpty()) {
             data.link = DanilNode(item)
         } else {
             var current = data.link!!
-            var i = 0
-            while (i < index % size) {
-                i++
+            var i = index % size
+            while (i > 0) {
+                i--
                 current = current.next
             }
             current.next = DanilNode(item, current.next)
@@ -21,14 +21,12 @@ open class DanilCircularSingleLinkedList<T> : CircularSingleLinkedList<T> {
         mutableSize++
     }
 
-    override fun addNext(item: T) {
-        if (size == 0) {
+    override fun add(item: T) {
+        if (isEmpty()) {
             data.link = DanilNode(item)
         } else {
             var current = data.link!!
-            var i = 1
-            while (i < size) {
-                i++
+            while (current.next!=data.link) {
                 current = current.next
             }
             current.next = DanilNode(item, current.next)
@@ -37,17 +35,14 @@ open class DanilCircularSingleLinkedList<T> : CircularSingleLinkedList<T> {
     }
 
     override fun addPrevious(item: T, index: Int) {
-        if (size == 0) {
+        if (isEmpty()) {
             data.link = DanilNode(item)
         } else {
             var current = data.link!!
-            var i = 0
-            var localIndex = index
-            while (localIndex - 1 < -size) {
-                localIndex += size
-            }
-            while (i < (size + localIndex - 1) % size) {
-                i++
+            var localIndex = index % size - 1
+            if (localIndex <= 0) localIndex += size
+            while (localIndex > 0) {
+                localIndex--
                 current = current.next
             }
             current.next = DanilNode(item, current.next)
@@ -55,9 +50,10 @@ open class DanilCircularSingleLinkedList<T> : CircularSingleLinkedList<T> {
         mutableSize++
     }
 
-    override fun remove(index: Int) = if (isEmpty()) {
-        false
+    override fun removeAt(index: Int) = if (isEmpty()) {
+        throw IllegalArgumentException()
     } else {
+        mutableSize--
         if (size == 1) {
             data.link = null
         } else {
@@ -68,24 +64,24 @@ open class DanilCircularSingleLinkedList<T> : CircularSingleLinkedList<T> {
                 current = current.next
             }
             current.value = current.next.value.apply {
+                if (current.next == data.link) data.link = current.next.next
                 current.next = current.next.next
             }
         }
-        mutableSize--
-        true
     }
 
     override fun remove(item: T) = if (isEmpty()) {
         false
     } else {
         var current = data.link!!
-        var i = 0
+        var i = size
         var deleted = false
-        while (i < size && !deleted) {
-            i++
+        while (i > 0 && !deleted) {
+            i--
             if (current.value == item) {
                 if (size == 1) data.link = null
                 else current.value = current.next.value.apply {
+                    if (current.next == data.link) data.link = current.next.next
                     current.next = current.next.next
                     deleted = true
                 }
@@ -100,7 +96,7 @@ open class DanilCircularSingleLinkedList<T> : CircularSingleLinkedList<T> {
     final override val current
         get() = data.link?.value ?: throw IllegalArgumentException()
 
-    override fun asList() = with(receiver = mutableListOf<T>()) {
+    override fun toList() = with(receiver = mutableListOf<T>()) {
         data.link?.let {
             var current = it
             do {
@@ -113,25 +109,42 @@ open class DanilCircularSingleLinkedList<T> : CircularSingleLinkedList<T> {
 
     override fun goForward(steps: Int) = if (size == 0) throw IllegalArgumentException()
     else {
-        var i = 0
-        var current = data.link!!
-        while (i < steps % size) {
-            i++
-            current = current.next
+        var i = steps % size
+        while (i > 0) {
+            i--
+            data.link = data.link!!.next
         }
-        data.link = current
     }
 
     override fun goBack(steps: Int) = if (size == 0) throw IllegalArgumentException()
     else {
-        var i = 0
-        var current = data.link!!
-        while (i < size - steps % size) {
-            i++
-            current = current.next
+        var i = size - steps % size
+        while (i > 0) {
+            i--
+            data.link = data.link!!.next
         }
-        data.link = current
     }
+
+    override fun clear() {
+        if (!isEmpty()) with(receiver = data) {
+            // Разомкнуть кольцо ссылок, чтобы сборщик мусора мог освободить память
+            link!!.next = link!!
+            link = null
+            mutableSize = 0
+        }
+    }
+
+    override fun get(index: Int) = if (isEmpty()) {
+        throw IllegalArgumentException()
+    } else {
+            var current = data.link!!
+            var i = 0
+            while (i<index) {
+                i++
+                current = current.next
+            }
+            current.value
+        }
 
     protected interface Node<T> {
         var value: T

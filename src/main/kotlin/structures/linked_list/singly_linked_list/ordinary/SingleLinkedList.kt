@@ -11,7 +11,7 @@ interface SingleLinkedList<T> {
     fun contains(item: T): Boolean
     fun isEmpty(): Boolean
     fun remove(item: T): Boolean
-    fun remove(index: Int)
+    fun removeAt(index: Int)
     val size: Int
     fun removeFirst(): Boolean
     fun removeLast(): Boolean
