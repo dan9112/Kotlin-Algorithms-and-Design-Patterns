@@ -1,6 +1,6 @@
 package structures.linked_list.singly_linked_list.circular
 
-interface CircularSingleLinkedList<T> {
+interface CircularLinkedList<T> {
     val size: Int
 
     fun addNext(item: T, index: Int)

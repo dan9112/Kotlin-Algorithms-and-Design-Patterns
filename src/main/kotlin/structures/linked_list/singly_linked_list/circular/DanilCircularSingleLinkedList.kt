@@ -1,7 +1,7 @@
 package structures.linked_list.singly_linked_list.circular
 
-open class DanilCircularSingleLinkedList<T> : CircularSingleLinkedList<T> {
-    protected val data = CurrentNodeLink<T>()
+open class DanilCircularSingleLinkedList<T> : CircularLinkedList<T> {
+    protected open val data = CurrentNodeSingleLink<T>()
     protected var mutableSize = 0
     final override val size
         get() = mutableSize
@@ -26,7 +26,7 @@ open class DanilCircularSingleLinkedList<T> : CircularSingleLinkedList<T> {
             data.link = DanilNode(item)
         } else {
             var current = data.link!!
-            while (current.next!=data.link) {
+            while (current.next != data.link) {
                 current = current.next
             }
             current.next = DanilNode(item, current.next)
@@ -137,27 +137,27 @@ open class DanilCircularSingleLinkedList<T> : CircularSingleLinkedList<T> {
     override fun get(index: Int) = if (isEmpty()) {
         throw IllegalArgumentException()
     } else {
-            var current = data.link!!
-            var i = 0
-            while (i<index) {
-                i++
-                current = current.next
-            }
-            current.value
+        var current = data.link!!
+        var i = 0
+        while (i < index) {
+            i++
+            current = current.next
         }
-
-    protected interface Node<T> {
-        var value: T
-        var next: Node<T>
+        current.value
     }
 
-    protected class DanilNode<T>(override var value: T) : Node<T> {
-        constructor(value: T, next: Node<T>) : this(value) {
+    protected interface NodeSingle<T> {
+        var value: T
+        var next: NodeSingle<T>
+    }
+
+    protected class DanilNode<T>(override var value: T) : NodeSingle<T> {
+        constructor(value: T, next: NodeSingle<T>) : this(value) {
             this.next = next
         }
 
-        override var next: Node<T> = this
+        override var next: NodeSingle<T> = this
     }
 
-    protected class CurrentNodeLink<T>(var link: Node<T>? = null)
+    protected open class CurrentNodeSingleLink<T>(var link: NodeSingle<T>? = null)
 }
