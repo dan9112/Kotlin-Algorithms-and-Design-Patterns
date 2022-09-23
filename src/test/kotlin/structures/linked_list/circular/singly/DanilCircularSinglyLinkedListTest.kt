@@ -1,45 +1,47 @@
-package structures.linked_list.singly_linked_list.circular
+package structures.linked_list.circular.singly
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import kotlin.random.Random.Default.nextInt
 
-internal class DanilCircularSingleLinkedListTest {
-    private val dcsll = DanilCircularSingleLinkedList<Int>()
+internal class DanilCircularSinglyLinkedListTest {
+    private val danilCircularSinglyLinkedList = DanilCircularSinglyLinkedList<Int>()
 
     @BeforeEach
     fun setUp() {
-        dcsll.clear()
+        danilCircularSinglyLinkedList.clear()
     }
 
     private val testList
         get() = IntArray(nextInt(100)) { nextInt() }.toList()
 
     @Test
-    fun getSize() = with(receiver = dcsll) {
+    fun getSize() = with(receiver = danilCircularSinglyLinkedList) {
         val testList = testList.onEach { add(it) }
 
         assertThat(size).isEqualTo(testList.size)
     }
 
     @Test
-    fun add() = with(receiver = dcsll) {
+    fun add() = with(receiver = danilCircularSinglyLinkedList) {
         testList.onEach { add(it) }.forEachIndexed { index, item ->
             assertThat(get(index)).isEqualTo(item)
         }
     }
 
     @Test
-    fun addNext() = with(receiver = dcsll) {
+    fun addNext() = with(receiver = danilCircularSinglyLinkedList) {
         val testList = mutableListOf<Int>()
-        this@DanilCircularSingleLinkedListTest.testList.forEach {
+        this@DanilCircularSinglyLinkedListTest.testList.forEach {
             val index = try {
-                nextInt(size)
+                val localIndex = nextInt(size)
+                addNext(it, localIndex)
+                localIndex
             } catch (exception: IllegalArgumentException) {
+                add(it)
                 0
             }
-            addNext(it, index)
             testList.run {
                 // Если следующий индекс больше индекса последнего элемента,
                 // то добавить в конец, иначе - на следующую позицию
@@ -52,15 +54,17 @@ internal class DanilCircularSingleLinkedListTest {
     }
 
     @Test
-    fun addPrevious() = with(receiver = dcsll) {
+    fun addPrevious() = with(receiver = danilCircularSinglyLinkedList) {
         val testList = mutableListOf<Int>()
-        this@DanilCircularSingleLinkedListTest.testList.forEach {
+        this@DanilCircularSinglyLinkedListTest.testList.forEach {
             val index = try {
-                nextInt(size)
+                val localIndex = nextInt(size)
+                addPrevious(it, localIndex)
+                localIndex
             } catch (exception: IllegalArgumentException) {
+                add(it)
                 0
             }
-            addPrevious(it, index)
             testList.run {
                 // Если индекс равен 0, то добавить в конец (так как в кольце
                 // последний элемент является предшествующим для первого),
@@ -74,7 +78,7 @@ internal class DanilCircularSingleLinkedListTest {
     }
 
     @Test
-    fun removeAt() = with(receiver = dcsll) {
+    fun removeAt() = with(receiver = danilCircularSinglyLinkedList) {
         val testList = testList.toMutableList().onEach { add(it) }
         val index = nextInt(size)
 
@@ -85,7 +89,7 @@ internal class DanilCircularSingleLinkedListTest {
     }
 
     @Test
-    fun remove() = with(receiver = dcsll) {
+    fun remove() = with(receiver = danilCircularSinglyLinkedList) {
         val testList = testList.toMutableList().onEach { add(it) }
         val item = testList.random()
 
@@ -96,7 +100,7 @@ internal class DanilCircularSingleLinkedListTest {
     }
 
     @Test
-    fun isEmpty() = with(receiver = dcsll) {
+    fun isEmpty() = with(receiver = danilCircularSinglyLinkedList) {
         assertThat(isEmpty()).isTrue()
 
         add(2)
@@ -105,7 +109,7 @@ internal class DanilCircularSingleLinkedListTest {
     }
 
     @Test
-    fun toList() = with(dcsll) {
+    fun toList() = with(danilCircularSinglyLinkedList) {
         val testList = testList.onEach { add(it) }
         toList().forEachIndexed { index, element ->
             assertThat(element).isEqualTo(testList[index])
@@ -113,7 +117,7 @@ internal class DanilCircularSingleLinkedListTest {
     }
 
     @Test
-    fun goForward() = with(dcsll) {
+    fun goForward() = with(danilCircularSinglyLinkedList) {
         testList.onEach { add(it) }.forEach {
             assertThat(current).isEqualTo(it)
 
@@ -122,7 +126,7 @@ internal class DanilCircularSingleLinkedListTest {
     }
 
     @Test
-    fun goBack() = with(dcsll) {
+    fun goBack() = with(danilCircularSinglyLinkedList) {
         testList.onEach { add(it) }.reversed().forEach {
             goBack(1)
 
@@ -131,7 +135,7 @@ internal class DanilCircularSingleLinkedListTest {
     }
 
     @Test
-    fun getCurrent() = with(dcsll) {
+    fun getCurrent() = with(danilCircularSinglyLinkedList) {
         var item = nextInt()
         add(item)
 
@@ -140,9 +144,34 @@ internal class DanilCircularSingleLinkedListTest {
         item = nextInt()
         val steps = nextInt(0, Int.MAX_VALUE)
         val realSteps = steps % size// остальное - полные обороты по кольцу
-        addNext(item, realSteps)
+        addNext(item, steps)
         goForward(realSteps + 1)
 
         assertThat(current).isEqualTo(item)
+    }
+
+    @Test
+    fun clear() = with(danilCircularSinglyLinkedList) {
+        assertThat(isEmpty()).isTrue()
+        assertThat(size).isEqualTo(0)
+
+        add(2)
+        add(5)
+        add(3)
+
+        assertThat(isEmpty()).isFalse()
+        assertThat(size).isNotEqualTo(0)
+
+        clear()
+
+        assertThat(isEmpty()).isTrue()
+        assertThat(size).isEqualTo(0)
+    }
+
+    @Test
+    fun get() = with(danilCircularSinglyLinkedList) {
+        testList.onEach { add(it) }.forEachIndexed { index, item ->
+            assertThat(get(index)).isEqualTo(item)
+        }
     }
 }

@@ -8,7 +8,6 @@ package structures
  * time to insert an element at the beginning and end of the list: O(1)
  * insertion time in the middle by index: O(n)
  * delete: O(n)
- *
  */
 
 class CircularLinkedList<T>(
@@ -28,16 +27,14 @@ class CircularLinkedList<T>(
 
     /**
      *  stores the number of elements in the list
-     *
      */
     private var count: Int = 0
 
     /**
      * singly linked list node
-     *
      * @constructor
-     * @property value - node value
-     * @property next - link to the next element (assuming the element is not the last one)
+     * @property value node value
+     * @property next link to the next element (assuming the element is not the last one)
      *
      */
     class Node<T>(
@@ -54,21 +51,18 @@ class CircularLinkedList<T>(
     }
 
     /**
-     *
-     * @return returns the number of elements in the list
+     * @return the number of elements in the list
      */
     fun size() = count
 
     /**
-     *
-     * @return returns true if the last element refers to the first
+     * @return true if the last element refers to the first
      */
     fun isCircular() = last?.next()?.value() == first?.value()
 
     /**
      * a simple function that converts a list into a normal Kotlin list for visual representation
-     *
-     * @return returns Kotlin a list of elements
+     * @return Kotlin a list of elements
      */
     fun toList() : List<T> {
         if (first == null) return listOf()
@@ -87,10 +81,8 @@ class CircularLinkedList<T>(
 
     /**
      * checks if an element is in the list
-     *
-     * @param value - element value
-     *
-     * @return returns true if the value exists in the list
+     * @param value element value
+     * @return true if the value exists in the list
      */
     fun contains(value: T) : Boolean {
         if (first == null) return false
@@ -108,17 +100,14 @@ class CircularLinkedList<T>(
 
     /**
      * checking if the list is empty
-     *
-     * @return returns true if the list is empty
+     * @return true if the list is empty
      */
     fun isEmpty() = first == null
 
     /**
      * removes an element from the list
-     *
-     * @param value - element value
-     *
-     * @return returns true if the element was successfully removed
+     * @param value element value
+     * @return true if the element was successfully removed
      */
     fun remove(value: T) : Boolean {
         if (first == null) {
@@ -148,11 +137,9 @@ class CircularLinkedList<T>(
 
     /**
      * add element by index
-     *
-     * @param index - the index where the new element should be added
-     * @param value - the value of the new element
-     *
-     * @return returns true if the element was successfully added at the specified index
+     * @param index the index where the new element should be added
+     * @param value the value of the new element
+     * @return true if the element was successfully added at the specified index
      */
     fun add(index: Int, value: T) : Boolean {
 
@@ -176,14 +163,12 @@ class CircularLinkedList<T>(
 
     /**
      * similar addLast method
-     *
      */
     fun add(value: T) = addLast(value)
 
     /**
      * adds an element to the beginning of the list
-     *
-     * @param value - element value
+     * @param value element value
      */
     fun addFirst(value: T) {
         val node = Node(value)
@@ -200,8 +185,7 @@ class CircularLinkedList<T>(
 
     /**
      * adds an element to the end of the list
-     *
-     * @param value - element value
+     * @param value element value
      */
     fun addLast(value: T) {
         val newNode = Node(value)
@@ -215,5 +199,4 @@ class CircularLinkedList<T>(
         this.last?.changeNext(this.first)
         count++
     }
-
 }

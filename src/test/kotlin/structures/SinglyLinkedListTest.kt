@@ -3,7 +3,7 @@ package structures
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-internal class SingleLinkedListTest {
+internal class SinglyLinkedListTest {
 
     @Test
     fun test_is_empty() {

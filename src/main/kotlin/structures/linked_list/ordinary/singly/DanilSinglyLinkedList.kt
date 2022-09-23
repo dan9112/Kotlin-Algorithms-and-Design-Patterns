@@ -1,6 +1,6 @@
-package structures.linked_list.singly_linked_list.ordinary
+package structures.linked_list.ordinary.singly
 
-open class DanilSingleLinkedList<T> : SingleLinkedList<T> {
+open class DanilSinglyLinkedList<T> : SinglyLinkedList<T> {
     protected var data: Node<T>? = null
     protected var mutableSize = 0
 

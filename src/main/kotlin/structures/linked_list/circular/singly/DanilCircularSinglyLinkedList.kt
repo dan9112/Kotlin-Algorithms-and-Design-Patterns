@@ -1,6 +1,8 @@
-package structures.linked_list.singly_linked_list.circular
+package structures.linked_list.circular.singly
 
-open class DanilCircularSingleLinkedList<T> : CircularLinkedList<T> {
+import structures.linked_list.circular.CircularLinkedList
+
+open class DanilCircularSinglyLinkedList<T> : CircularLinkedList<T> {
     protected open val data = CurrentNodeSingleLink<T>()
     protected var mutableSize = 0
     final override val size
@@ -8,7 +10,7 @@ open class DanilCircularSingleLinkedList<T> : CircularLinkedList<T> {
 
     override fun addNext(item: T, index: Int) {
         if (isEmpty()) {
-            data.link = DanilNode(item)
+            throw IllegalArgumentException()
         } else {
             var current = data.link!!
             var i = index % size
@@ -36,7 +38,7 @@ open class DanilCircularSingleLinkedList<T> : CircularLinkedList<T> {
 
     override fun addPrevious(item: T, index: Int) {
         if (isEmpty()) {
-            data.link = DanilNode(item)
+            throw IllegalArgumentException()
         } else {
             var current = data.link!!
             var localIndex = index % size - 1

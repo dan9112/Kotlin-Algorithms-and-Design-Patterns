@@ -1,6 +1,6 @@
-package structures.linked_list.double_linked_list
+package structures.linked_list.circular.doubly
 
-import structures.linked_list.singly_linked_list.circular.CircularLinkedList
+import structures.linked_list.circular.CircularLinkedList
 
 open class DanilCircularDoubleLinkedList<T> : CircularLinkedList<T> {
     protected open val data = CurrentNodeSingleLink<T>()
@@ -13,11 +13,11 @@ open class DanilCircularDoubleLinkedList<T> : CircularLinkedList<T> {
 
     override fun addNext(item: T, index: Int) {
         if (isEmpty()) {
-            data.link = DanilNode(item)
+            throw IllegalArgumentException()
         } else {
             var current = node(index)
             current.next = DanilNode(item, current.next, current)
-            current = current.next
+            current = current.next.next
             current.previous = current.previous.next
         }
         mutableSize++
@@ -28,7 +28,7 @@ open class DanilCircularDoubleLinkedList<T> : CircularLinkedList<T> {
             data.link = DanilNode(item)
         } else with(data) {
             val current = link!!.previous
-            current.next = DanilNode(item, link!!, current)
+            current.next = DanilNode(item, current.next, current)
             link!!.previous = current.next
         }
         mutableSize++
@@ -36,11 +36,11 @@ open class DanilCircularDoubleLinkedList<T> : CircularLinkedList<T> {
 
     override fun addPrevious(item: T, index: Int) {
         if (isEmpty()) {
-            data.link = DanilNode(item)
+            throw IllegalArgumentException()
         } else {
             var current = node(index)
             current.previous = DanilNode(item, current, current.previous)
-            current = current.previous
+            current = current.previous.previous
             current.next = current.next.previous
         }
         mutableSize++
@@ -49,13 +49,14 @@ open class DanilCircularDoubleLinkedList<T> : CircularLinkedList<T> {
     override fun removeAt(index: Int) = if (isEmpty()) {
         throw IllegalArgumentException()
     } else {
-        mutableSize--
-
         if (size == 1) {
             data.link = null
         } else {
-            val localIndex = index.toRealIndex
-            if (localIndex == 0) data.link = data.link!!.next
+            var localIndex = index.toRealIndex
+            if (localIndex == 0) {
+                data.link = data.link!!.next
+                localIndex = size - 1
+            }
 
             var current: NodeDouble<T>
             if (localIndex <= median) {
@@ -64,12 +65,13 @@ open class DanilCircularDoubleLinkedList<T> : CircularLinkedList<T> {
                 current = current.next
                 current.previous = current.previous.previous
             } else {
-                current = node(size - localIndex - 1)
+                current = node(localIndex + 1)
                 current.previous = current.previous.previous
                 current = current.previous
                 current.next = current.next.next
             }
         }
+        mutableSize -= 1
     }
 
     override fun remove(item: T) = if (isEmpty()) {
@@ -83,13 +85,13 @@ open class DanilCircularDoubleLinkedList<T> : CircularLinkedList<T> {
             if (current.value == item) {
                 if (size == 1) data.link = null
                 else current.value = current.next.value.apply {
-                    if (current.next == data.link) data.link = current.next.next
+                    if (current.next == data.link) data.link = data.link!!.previous
                     current.next = current.next.next
                     current = current.next
                     current.previous = current.previous.previous
                     deleted = true
                 }
-                mutableSize--
+                mutableSize -= 1
             } else current = current.next
         }
         deleted
@@ -111,7 +113,7 @@ open class DanilCircularDoubleLinkedList<T> : CircularLinkedList<T> {
         toList()
     }
 
-    fun toReverseList() = with(receiver = mutableListOf<T>()) {
+    fun toReversedList() = with(receiver = mutableListOf<T>()) {
         data.link?.let {
             var current = it
             do {
@@ -179,7 +181,7 @@ open class DanilCircularDoubleLinkedList<T> : CircularLinkedList<T> {
         throw IllegalArgumentException()
     } else node(index).value
 
-    private fun node(index: Int) = run{
+    private fun node(index: Int) = run {
         var current = data.link!!
         val localIndex = index.toRealIndex
         if (localIndex <= median) iterator(localIndex) { current = current.next }

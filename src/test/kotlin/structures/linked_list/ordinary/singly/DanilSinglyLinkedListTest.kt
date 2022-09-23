@@ -1,4 +1,4 @@
-package structures.linked_list.singly_linked_list.ordinary
+package structures.linked_list.ordinary.singly
 
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.BeforeEach
@@ -6,26 +6,26 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import kotlin.random.Random.Default.nextInt
 
-internal class DanilSingleLinkedListTest {
-    private val dsll = DanilSingleLinkedList<Int>()
+internal class DanilSinglyLinkedListTest {
+    private val danilSinglyLinkedList = DanilSinglyLinkedList<Int>()
 
     @BeforeEach
     fun setUp() {
-        dsll.clear()
+        danilSinglyLinkedList.clear()
     }
 
     private val testList
         get() = IntArray(nextInt(100)) { nextInt() }.toMutableList()
 
     @Test
-    fun add() = with(dsll) {
+    fun add() = with(danilSinglyLinkedList) {
         val list = testList.onEach { add(it) }
 
         forEachIndexed { index, item -> assertThat(item).isEqualTo(list[index]) }
     }
 
     @Test
-    fun addByIndex() = with(dsll) {
+    fun addByIndex() = with(danilSinglyLinkedList) {
         val list = testList.let { list ->
             list.forEach {
                 add(it, 0)
@@ -37,15 +37,15 @@ internal class DanilSingleLinkedListTest {
     }
 
     @Test
-    fun clear() = with(dsll) {
+    fun clear() = with(danilSinglyLinkedList) {
         testList.forEach { add(it) }
         clear()
 
-        assertThat(dsll.isEmpty()).isTrue()
+        assertThat(danilSinglyLinkedList.isEmpty()).isTrue()
     }
 
     @Test
-    fun getFirst() = with(dsll) {
+    fun getFirst() = with(danilSinglyLinkedList) {
         assertThat(first).isNull()
 
         add(23)
@@ -57,7 +57,7 @@ internal class DanilSingleLinkedListTest {
     }
 
     @Test
-    fun remove() = with(dsll) {
+    fun remove() = with(danilSinglyLinkedList) {
         val list = testList.onEach { add(it) }
         list.random().let {
             remove(it)
@@ -78,7 +78,7 @@ internal class DanilSingleLinkedListTest {
     }
 
     @Test
-    fun removeAt() = with(dsll) {
+    fun removeAt() = with(danilSinglyLinkedList) {
         val list = testList.onEach { add(it) }
         nextInt(size).let {
             removeAt(it)
@@ -89,14 +89,14 @@ internal class DanilSingleLinkedListTest {
     }
 
     @Test
-    fun toList() = with(dsll) {
+    fun toList() = with(danilSinglyLinkedList) {
         val list = testList.onEach { add(it) }
 
         assertThat(toList()).isEqualTo(list)
     }
 
     @Test
-    fun isEmpty() = with(dsll) {
+    fun isEmpty() = with(danilSinglyLinkedList) {
         assertThat(isEmpty()).isTrue()
 
         add(2)
@@ -109,14 +109,14 @@ internal class DanilSingleLinkedListTest {
     }
 
     @Test
-    fun getSize() = with(dsll) {
+    fun getSize() = with(danilSinglyLinkedList) {
         val testList = testList.onEach { add(it) }
 
         assertThat(size).isEqualTo(testList.size)
     }
 
     @Test
-    fun removeFirst() = with(dsll) {
+    fun removeFirst() = with(danilSinglyLinkedList) {
         val testList = testList.onEach { add(it) }
         removeFirst()
 
@@ -124,7 +124,7 @@ internal class DanilSingleLinkedListTest {
     }
 
     @Test
-    fun removeLast() = with(dsll) {
+    fun removeLast() = with(danilSinglyLinkedList) {
         val testList = testList.onEach { add(it) }
         removeLast()
 
@@ -132,21 +132,21 @@ internal class DanilSingleLinkedListTest {
     }
 
     @Test
-    fun get() = with(dsll) {
+    fun get() = with(danilSinglyLinkedList) {
         testList.onEach { add(it) }.forEachIndexed { index, item ->
             assertThat(get(index)).isEqualTo(item)
         }
     }
 
     @Test
-    fun contains() = with(dsll) {
+    fun contains() = with(danilSinglyLinkedList) {
         val randomItem = testList.onEach { add(it) }.random()
 
         assertThat(contains(randomItem)).isTrue()
     }
 
     @Test
-    fun addLast() = with(dsll) {
+    fun addLast() = with(danilSinglyLinkedList) {
         testList.forEach { add(it) }
         val item = -1253
         addLast(item)
@@ -155,7 +155,7 @@ internal class DanilSingleLinkedListTest {
     }
 
     @Test
-    fun addFirst() = with(dsll) {
+    fun addFirst() = with(danilSinglyLinkedList) {
         testList.forEach { add(it) }
         val item = -1253
         addFirst(item)

@@ -1,6 +1,6 @@
-package structures.linked_list.singly_linked_list.ordinary
+package structures.linked_list.ordinary.singly
 
-interface SingleLinkedList<T> {
+interface SinglyLinkedList<T> {
     fun add(item: T, index: Int)
     fun add(item: T)
     fun clear()

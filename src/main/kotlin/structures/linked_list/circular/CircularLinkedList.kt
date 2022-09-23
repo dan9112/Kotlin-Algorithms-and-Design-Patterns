@@ -1,4 +1,4 @@
-package structures.linked_list.singly_linked_list.circular
+package structures.linked_list.circular
 
 interface CircularLinkedList<T> {
     val size: Int
