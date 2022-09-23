@@ -3,9 +3,14 @@ package structures.linked_list.circular.doubly
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
+import java.util.stream.Stream
 import kotlin.random.Random.Default.nextInt
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DanilCircularDoublyLinkedListTest {
     private val danilCircularDoubleLinkedList = DanilCircularDoubleLinkedList<Int>()
 
@@ -14,22 +19,29 @@ internal class DanilCircularDoublyLinkedListTest {
         danilCircularDoubleLinkedList.clear()
     }
 
-    private val testList
-        get() = IntArray(nextInt(6, 50)) { nextInt() }.toList()
+    private fun intListProvider() = Stream.of(
+        listOf(1, 3, 5, 20, 231, 573, 2134),
+        listOf(-5, 983, 0, -8213, -87, 52438, 12215246),
+        listOf(0, 121236, -2354353, -8, 1237, 4573, 234, -3, 2),
+        listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+        listOf(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+    )
 
-    @Test
-    fun getSize() = with(danilCircularDoubleLinkedList) {
-        val testList = testList.onEach { add(it) }
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun getSize(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
+        val list = testList.onEach { add(it) }
 
-        assertThat(size).isEqualTo(testList.size)
+        assertThat(size).isEqualTo(list.size)
 
         add(0)
 
-        assertThat(size).isEqualTo(testList.size + 1)
+        assertThat(size).isEqualTo(list.size + 1)
     }
 
-    @Test
-    fun addNext() = with(danilCircularDoubleLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun addNext(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
         assertThrows<IllegalArgumentException> { addNext(2, 2) }
 
         val list = mutableListOf<Int>()
@@ -50,15 +62,17 @@ internal class DanilCircularDoublyLinkedListTest {
         assertThat(toList()).isEqualTo(list)
     }
 
-    @Test
-    fun add() = with(danilCircularDoubleLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun add(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
         val list = testList.onEach { add(it) }
 
         assertThat(toList()).isEqualTo(list)
     }
 
-    @Test
-    fun addPrevious() = with(danilCircularDoubleLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun addPrevious(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
         assertThrows<IllegalArgumentException> { addPrevious(2, 2) }
 
         val list = mutableListOf<Int>()
@@ -79,8 +93,9 @@ internal class DanilCircularDoublyLinkedListTest {
         assertThat(toList()).isEqualTo(list)
     }
 
-    @Test
-    fun removeAt() = with(danilCircularDoubleLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun removeAt(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
         val list = testList.onEach { add(it) }.toMutableList()
         var index: Int
         for (i in 0 until 5) {
@@ -121,8 +136,9 @@ internal class DanilCircularDoublyLinkedListTest {
         assertThat(isEmpty()).isTrue()
     }
 
-    @Test
-    fun getCurrent() = with(danilCircularDoubleLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun getCurrent(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
         var item = nextInt()
         add(item)
 
@@ -137,24 +153,27 @@ internal class DanilCircularDoublyLinkedListTest {
         assertThat(current).isEqualTo(item)
     }
 
-    @Test
-    fun toList() = with(danilCircularDoubleLinkedList) {
-        val testList = testList.onEach { add(it) }
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun toList(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
+        val list = testList.onEach { add(it) }
         toList().forEachIndexed { index, element ->
-            assertThat(element).isEqualTo(testList[index])
+            assertThat(element).isEqualTo(list[index])
         }
     }
 
-    @Test
-    fun toReverseList() = with(danilCircularDoubleLinkedList) {
-        val testList = testList.onEach { add(it) }.reversed()
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun toReverseList(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
+        val list = testList.onEach { add(it) }.reversed()
         toReversedList().forEachIndexed { index, element ->
-            assertThat(element).isEqualTo(testList[index])
+            assertThat(element).isEqualTo(list[index])
         }
     }
 
-    @Test
-    fun goForward() = with(danilCircularDoubleLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun goForward(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
         testList.onEach { add(it) }.forEach {
             assertThat(current).isEqualTo(it)
 
@@ -162,8 +181,9 @@ internal class DanilCircularDoublyLinkedListTest {
         }
     }
 
-    @Test
-    fun goBack() = with(danilCircularDoubleLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun goBack(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
         testList.onEach { add(it) }.reversed().forEach {
             goBack(1)
 
@@ -171,8 +191,9 @@ internal class DanilCircularDoublyLinkedListTest {
         }
     }
 
-    @Test
-    fun clear() = with(danilCircularDoubleLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun clear(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
         assertThat(isEmpty()).isTrue()
         assertThat(size).isEqualTo(0)
 
@@ -189,8 +210,9 @@ internal class DanilCircularDoublyLinkedListTest {
         assertThat(size).isEqualTo(0)
     }
 
-    @Test
-    fun get() = with(danilCircularDoubleLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun get(testList: List<Int>) = with(danilCircularDoubleLinkedList) {
         testList.onEach { add(it) }.forEachIndexed { index, item ->
             assertThat(get(index)).isEqualTo(item)
         }

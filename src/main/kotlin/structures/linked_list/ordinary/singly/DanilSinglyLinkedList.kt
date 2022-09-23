@@ -141,8 +141,8 @@ open class DanilSinglyLinkedList<T> : SinglyLinkedList<T> {
         var shouldLoop: Boolean? = null
         while (shouldLoop == null) {
             when {
-                current?.next == null -> shouldLoop = false
-                current.value == item -> shouldLoop = true
+                current!!.value == item -> shouldLoop = true
+                current.next == null -> shouldLoop = false
                 else -> current = current.next
             }
         }

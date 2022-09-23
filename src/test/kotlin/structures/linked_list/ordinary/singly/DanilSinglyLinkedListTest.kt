@@ -3,9 +3,14 @@ package structures.linked_list.ordinary.singly
 import com.google.common.truth.Truth.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
+import java.util.stream.Stream
 import kotlin.random.Random.Default.nextInt
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DanilSinglyLinkedListTest {
     private val danilSinglyLinkedList = DanilSinglyLinkedList<Int>()
 
@@ -14,18 +19,25 @@ internal class DanilSinglyLinkedListTest {
         danilSinglyLinkedList.clear()
     }
 
-    private val testList
-        get() = IntArray(nextInt(100)) { nextInt() }.toMutableList()
+    private fun intListProvider() = Stream.of(
+        mutableListOf(1, 3, 5, 20, 231, 573, 2134),
+        mutableListOf(-5, 983, 0, -8213, -87, 52438, 12215246),
+        mutableListOf(0, 121236, -2354353, -8, 1237, 4573, 234, -3, 2),
+        mutableListOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+        mutableListOf(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1)
+    )
 
-    @Test
-    fun add() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun add(testList: List<Int>) = with(danilSinglyLinkedList) {
         val list = testList.onEach { add(it) }
 
         forEachIndexed { index, item -> assertThat(item).isEqualTo(list[index]) }
     }
 
-    @Test
-    fun addByIndex() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun addByIndex(testList: List<Int>) = with(danilSinglyLinkedList) {
         val list = testList.let { list ->
             list.forEach {
                 add(it, 0)
@@ -36,16 +48,18 @@ internal class DanilSinglyLinkedListTest {
         forEachIndexed { index, item -> assertThat(item).isEqualTo(list[index]) }
     }
 
-    @Test
-    fun clear() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun clear(testList: List<Int>) = with(danilSinglyLinkedList) {
         testList.forEach { add(it) }
         clear()
 
         assertThat(danilSinglyLinkedList.isEmpty()).isTrue()
     }
 
-    @Test
-    fun getFirst() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun getFirst(testList: List<Int>) = with(danilSinglyLinkedList) {
         assertThat(first).isNull()
 
         add(23)
@@ -56,8 +70,9 @@ internal class DanilSinglyLinkedListTest {
         assertThat(first).isEqualTo(23)
     }
 
-    @Test
-    fun remove() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun remove(testList: MutableList<Int>) = with(danilSinglyLinkedList) {
         val list = testList.onEach { add(it) }
         list.random().let {
             remove(it)
@@ -77,8 +92,9 @@ internal class DanilSinglyLinkedListTest {
         assertThat(toList()).isEqualTo(list)
     }
 
-    @Test
-    fun removeAt() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun removeAt(testList: MutableList<Int>) = with(danilSinglyLinkedList) {
         val list = testList.onEach { add(it) }
         nextInt(size).let {
             removeAt(it)
@@ -88,8 +104,9 @@ internal class DanilSinglyLinkedListTest {
         assertThat(toList()).isEqualTo(list)
     }
 
-    @Test
-    fun toList() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun toList(testList: List<Int>) = with(danilSinglyLinkedList) {
         val list = testList.onEach { add(it) }
 
         assertThat(toList()).isEqualTo(list)
@@ -108,45 +125,51 @@ internal class DanilSinglyLinkedListTest {
         assertThat(isEmpty()).isTrue()
     }
 
-    @Test
-    fun getSize() = with(danilSinglyLinkedList) {
-        val testList = testList.onEach { add(it) }
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun getSize(testList: List<Int>) = with(danilSinglyLinkedList) {
+        val list = testList.onEach { add(it) }
 
-        assertThat(size).isEqualTo(testList.size)
+        assertThat(size).isEqualTo(list.size)
     }
 
-    @Test
-    fun removeFirst() = with(danilSinglyLinkedList) {
-        val testList = testList.onEach { add(it) }
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun removeFirst(testList: List<Int>) = with(danilSinglyLinkedList) {
+        val list = testList.onEach { add(it) }
         removeFirst()
 
-        assertThat(toList()).isEqualTo(testList.subList(1, testList.size))
+        assertThat(toList()).isEqualTo(list.subList(1, list.size))
     }
 
-    @Test
-    fun removeLast() = with(danilSinglyLinkedList) {
-        val testList = testList.onEach { add(it) }
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun removeLast(testList: List<Int>) = with(danilSinglyLinkedList) {
+        val list = testList.onEach { add(it) }
         removeLast()
 
-        assertThat(toList()).isEqualTo(testList.subList(0, testList.lastIndex))
+        assertThat(toList()).isEqualTo(list.subList(0, list.lastIndex))
     }
 
-    @Test
-    fun get() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun get(testList: List<Int>) = with(danilSinglyLinkedList) {
         testList.onEach { add(it) }.forEachIndexed { index, item ->
             assertThat(get(index)).isEqualTo(item)
         }
     }
 
-    @Test
-    fun contains() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun contains(testList: List<Int>) = with(danilSinglyLinkedList) {
         val randomItem = testList.onEach { add(it) }.random()
 
         assertThat(contains(randomItem)).isTrue()
     }
 
-    @Test
-    fun addLast() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun addLast(testList: List<Int>) = with(danilSinglyLinkedList) {
         testList.forEach { add(it) }
         val item = -1253
         addLast(item)
@@ -154,8 +177,9 @@ internal class DanilSinglyLinkedListTest {
         assertThat(get(size - 1)).isEqualTo(item)
     }
 
-    @Test
-    fun addFirst() = with(danilSinglyLinkedList) {
+    @ParameterizedTest
+    @MethodSource("intListProvider")
+    fun addFirst(testList: List<Int>) = with(danilSinglyLinkedList) {
         testList.forEach { add(it) }
         val item = -1253
         addFirst(item)
